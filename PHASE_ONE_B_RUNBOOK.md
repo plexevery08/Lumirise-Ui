@@ -26,6 +26,14 @@ Settings**:
   users.
 - `easy_ui_state_actions` and `easy_ui_scanner_actions` stay `0`.
 
+Phase 1C trace controls are also off by default:
+
+- `easy_ui_order_360=1` exposes the read-only Order 360 trace.
+- `easy_ui_material_360=1` exposes the read-only Material 360 stock/movement view.
+
+Enable these only after the Phase 1C gates pass. They do not enable any
+state-changing action.
+
 The pages remain read-only even when their individual flags are enabled.
 
 ## Rollback levels
@@ -42,5 +50,5 @@ The pages remain read-only even when their individual flags are enabled.
    backup can restore the site if a schema rollback is required.
 
 After rollback, verify that both Page routes either no longer exist (code
-rollback) or return the disabled read-only message, all three UI flags are `0`,
+rollback) or return the disabled read-only message, all UI rollout flags are `0`,
 and the native ERPNext forms still load.

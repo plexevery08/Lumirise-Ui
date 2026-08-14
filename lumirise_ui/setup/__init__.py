@@ -53,7 +53,7 @@ UI_ROLLOUT_FIELDS = (
 		"fieldtype": "Check",
 		"label": "Enable Order 360",
 		"default": "0",
-		"description": "Expose the read-only Order 360 surface when implemented.",
+		"description": "Expose the read-only Order 360 trace surface.",
 		"insert_after": "easy_ui_needs_attention",
 		"module": "Lumirise UI",
 	},
@@ -62,7 +62,7 @@ UI_ROLLOUT_FIELDS = (
 		"fieldtype": "Check",
 		"label": "Enable Material 360",
 		"default": "0",
-		"description": "Expose the read-only Material 360 surface when implemented.",
+		"description": "Expose the read-only Material 360 stock and movement surface.",
 		"insert_after": "easy_ui_order_360",
 		"module": "Lumirise UI",
 	},
@@ -146,14 +146,20 @@ def before_migrate() -> None:
 
 def after_migrate() -> None:
 	ensure_rollout_fields()
-	from lumirise_ui.workspace_routing import ensure_daily_queue_shortcuts, sync_role_workspace_rollout
+	from lumirise_ui.workspace_routing import (
+		ensure_daily_queue_shortcuts,
+		ensure_trace_view_shortcuts,
+		sync_role_workspace_rollout,
+	)
 
 	sync_role_workspace_rollout()
 	ensure_daily_queue_shortcuts()
+	ensure_trace_view_shortcuts()
 
 
 def on_settings_update(doc, method=None) -> None:
 	"""Apply the role-workspace kill switch immediately after settings save."""
-	from lumirise_ui.workspace_routing import sync_role_workspace_rollout
+	from lumirise_ui.workspace_routing import ensure_trace_view_shortcuts, sync_role_workspace_rollout
 
 	sync_role_workspace_rollout(enabled=bool(doc.get("easy_ui_role_workspaces")))
+	ensure_trace_view_shortcuts()

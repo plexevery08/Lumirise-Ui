@@ -5,14 +5,15 @@ Standalone Lumirise easy-use UI surfaces
 This app is the dedicated home for Lumirise UI work and keeps Desk pages,
 workspaces, and UI-only endpoints separate from the `lumirise_custom` business
 app. It depends on ERPNext and `lumirise_custom` for the authoritative
-DocTypes, task fields, and safety contracts. UI code should be moved here before
-this app is installed on a site.
+DocTypes, task fields, traceability fields, and safety contracts. UI code should
+be moved here before this app is installed on a site.
 
 The app owns the rollout flags as additive Custom Fields when an older
 `lumirise_custom` branch does not yet carry the Phase 0 fields. It does not own
 the `Lumirise Task` business lifecycle or create state-changing actions. Keep
 all UI flags off until the Phase 0 custom-app gates and the UI integration suite
-pass on a disposable site.
+pass on a disposable site. Phase 1C adds the read-only Order 360 and Material
+360 views; their flags are independent and remain off by default.
 
 ### Installation
 

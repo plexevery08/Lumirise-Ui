@@ -60,6 +60,11 @@ DAILY_QUEUE_SHORTCUTS = (
 	("Needs Attention", "lumirise-needs-attention", "Red"),
 )
 
+TRACE_VIEW_SHORTCUTS = (
+	("Order 360", "lumirise-order-360", "Blue", "easy_ui_order_360"),
+	("Material 360", "lumirise-material-360", "Green", "easy_ui_material_360"),
+)
+
 
 def ensure_workspace_access_roles() -> None:
 	"""Create the dedicated pilot roles before Workspace metadata is imported."""
@@ -118,6 +123,75 @@ def ensure_daily_queue_shortcuts() -> None:
 				content.append(
 					{
 						"id": f"lr{spec.key}daily{index}",
+						"type": "shortcut",
+						"data": {"shortcut_name": label, "col": 3},
+					}
+				)
+				content_labels.add(label)
+				changed = True
+
+		if changed:
+			workspace.content = frappe.as_json(content)
+			workspace.save(ignore_permissions=True)
+
+
+def ensure_trace_view_shortcuts() -> None:
+	"""Reconcile optional trace links without exposing them while flags are off."""
+	if not frappe.db.exists("DocType", "Workspace"):
+		return
+
+	managed = {label: (page_name, color, flag) for label, page_name, color, flag in TRACE_VIEW_SHORTCUTS}
+	for spec in ROLE_WORKSPACES:
+		if not frappe.db.exists("Workspace", spec.name):
+			continue
+		workspace = frappe.get_doc("Workspace", spec.name)
+		content = frappe.parse_json(workspace.content or "[]")
+		if not isinstance(content, list):
+			content = []
+		changed = False
+
+		for row in tuple(workspace.shortcuts):
+			definition = managed.get(row.label)
+			if definition and (not is_enabled(definition[2]) or row.link_to != definition[0]):
+				workspace.remove(row)
+				changed = True
+
+		filtered_content = []
+		for block in content:
+			label = block.get("data", {}).get("shortcut_name") if isinstance(block, dict) else None
+			definition = managed.get(label)
+			if definition and not is_enabled(definition[2]):
+				changed = True
+				continue
+			filtered_content.append(block)
+		content = filtered_content
+
+		child_labels = {row.label for row in workspace.shortcuts}
+		content_labels = {
+			block.get("data", {}).get("shortcut_name")
+			for block in content
+			if isinstance(block, dict) and block.get("type") == "shortcut"
+		}
+		for index, (label, page_name, color, flag) in enumerate(TRACE_VIEW_SHORTCUTS, start=1):
+			if not is_enabled(flag) or not frappe.db.exists("Page", page_name):
+				continue
+			if label not in child_labels:
+				workspace.append(
+					"shortcuts",
+					{
+						"label": label,
+						"link_to": page_name,
+						"type": "Page",
+						"color": color,
+						"doc_view": "",
+					},
+				)
+				child_labels.add(label)
+				changed = True
+			if label not in content_labels:
+				content.append(
+					{
+						"id": f"{spec.key}trace{index}",
 						"type": "shortcut",
 						"data": {"shortcut_name": label, "col": 3},
 					}

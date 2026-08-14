@@ -42,5 +42,6 @@ All of the following must pass before enabling a flag:
 6. The rollback procedure below hides the role shell and makes both APIs fail
    closed before any task query.
 
-Phase 1C trace views and all state-changing actions remain out of scope until
-this shadow release has been observed and separately approved.
+Phase 1C read-only trace views are delivered separately in
+`PHASE_ONE_C_RELEASE_MANIFEST.md`. All state-changing actions remain out of
+scope until the shadow releases have been observed and separately approved.
