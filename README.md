@@ -2,6 +2,12 @@
 
 Standalone Lumirise easy-use UI surfaces
 
+This app is the dedicated home for Lumirise UI work and keeps Desk pages,
+workspaces, and UI-only endpoints separate from the `lumirise_custom` business
+app. It depends on ERPNext and `lumirise_custom` for the authoritative DocTypes
+and safety contracts. UI code should be moved here before this app is installed
+on a site.
+
 ### Installation
 
 You can install this app using the [bench](https://github.com/frappe/bench) CLI:
