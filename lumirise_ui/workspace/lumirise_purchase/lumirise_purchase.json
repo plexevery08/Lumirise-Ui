@@ -1,0 +1,84 @@
+{
+ "app": "lumirise_ui",
+ "charts": [],
+ "content": "[{\"id\":\"lpurhead01\",\"type\":\"header\",\"data\":{\"text\":\"Purchase — Daily Navigation\",\"level\":4,\"col\":12}},{\"id\":\"lpurshort1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"My Purchase Tasks\",\"col\":3}},{\"id\":\"lpurshort2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Indent Queue\",\"col\":3}},{\"id\":\"lpurshort3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Plans\",\"col\":3}},{\"id\":\"lpurshort4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Purchase Orders\",\"col\":3}},{\"id\":\"lpurpipe01\",\"type\":\"header\",\"data\":{\"text\":\"Approval & Inbound Review\",\"level\":4,\"col\":12}},{\"id\":\"lpurshort5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RM Price Books\",\"col\":3}},{\"id\":\"lpurshort6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor PDI\",\"col\":3}},{\"id\":\"lpurshort7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stage-wise PO Status\",\"col\":3}}]",
+ "creation": "2026-08-10 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 1,
+ "icon": "buying",
+ "idx": 0,
+ "indicator_color": "orange",
+ "is_hidden": 1,
+ "label": "Lumirise Purchase",
+ "links": [],
+ "modified": "2026-08-10 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Lumirise UI",
+ "name": "Lumirise Purchase",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Lumirise Purchase Workspace"
+  }
+ ],
+ "sequence_id": 23.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "My Purchase Tasks",
+   "link_to": "Lumirise Task",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Indent Queue",
+   "link_to": "Indent",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Purchase Plans",
+   "link_to": "Purchase Plan",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Purchase Orders",
+   "link_to": "Purchase Order",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "doc_view": "List",
+   "label": "RM Price Books",
+   "link_to": "RM Price Book",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "label": "Vendor PDI",
+   "link_to": "Vendor PDI",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "",
+   "label": "Stage-wise PO Status",
+   "link_to": "Stage-wise PO Status",
+   "report_ref_doctype": "Purchase Order",
+   "type": "Report"
+  }
+ ],
+ "title": "Lumirise Purchase",
+ "type": "Workspace"
+}

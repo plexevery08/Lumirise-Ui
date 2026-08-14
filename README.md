@@ -4,9 +4,15 @@ Standalone Lumirise easy-use UI surfaces
 
 This app is the dedicated home for Lumirise UI work and keeps Desk pages,
 workspaces, and UI-only endpoints separate from the `lumirise_custom` business
-app. It depends on ERPNext and `lumirise_custom` for the authoritative DocTypes
-and safety contracts. UI code should be moved here before this app is installed
-on a site.
+app. It depends on ERPNext and `lumirise_custom` for the authoritative
+DocTypes, task fields, and safety contracts. UI code should be moved here before
+this app is installed on a site.
+
+The app owns the rollout flags as additive Custom Fields when an older
+`lumirise_custom` branch does not yet carry the Phase 0 fields. It does not own
+the `Lumirise Task` business lifecycle or create state-changing actions. Keep
+all UI flags off until the Phase 0 custom-app gates and the UI integration suite
+pass on a disposable site.
 
 ### Installation
 
@@ -14,7 +20,7 @@ You can install this app using the [bench](https://github.com/frappe/bench) CLI:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch version-16
+bench get-app $URL_OF_THIS_REPO --branch main
 bench install-app lumirise_ui
 ```
 

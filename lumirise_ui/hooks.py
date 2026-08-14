@@ -8,7 +8,14 @@ app_license = "mit"
 # Apps
 # ------------------
 
-required_apps = ["erpnext"]
+required_apps = ["erpnext", "lumirise_custom"]
+
+# UI-owned setup is deliberately additive: business DocTypes and their
+# safety contracts remain authoritative in lumirise_custom.
+before_install = "lumirise_ui.setup.before_install"
+after_install = "lumirise_ui.setup.after_install"
+before_migrate = "lumirise_ui.setup.before_migrate"
+after_migrate = "lumirise_ui.setup.after_migrate"
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -85,8 +92,8 @@ required_apps = ["erpnext"]
 # Installation
 # ------------
 
-# before_install = "lumirise_ui.install.before_install"
-# after_install = "lumirise_ui.install.after_install"
+# before_install / after_install are defined above so role links and rollout
+# fields exist before the UI metadata is synchronized.
 
 # Uninstallation
 # ------------
@@ -126,25 +133,25 @@ required_apps = ["erpnext"]
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+permission_query_conditions = {
+	"Lumirise Task": "lumirise_ui.task_permissions.get_permission_query_conditions",
+}
+
+has_permission = {
+	"Lumirise Task": "lumirise_ui.task_permissions.has_permission",
+}
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Lumirise Operations Settings": {
+		"on_update": "lumirise_ui.setup.on_settings_update",
+	}
+}
+
+fixtures = [{"dt": "Workspace", "filters": [["module", "=", "Lumirise UI"]]}]
 
 # Scheduled Tasks
 # ---------------

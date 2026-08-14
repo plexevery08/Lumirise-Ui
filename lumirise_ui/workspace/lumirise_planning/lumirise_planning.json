@@ -1,0 +1,86 @@
+{
+ "app": "lumirise_ui",
+ "charts": [],
+ "content": "[{\"id\":\"lplahead01\",\"type\":\"header\",\"data\":{\"text\":\"Planning — Daily Navigation\",\"level\":4,\"col\":12}},{\"id\":\"lplashort1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"My Planning Tasks\",\"col\":3}},{\"id\":\"lplashort2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Material Plans\",\"col\":3}},{\"id\":\"lplashort3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Production Schedules\",\"col\":3}},{\"id\":\"lplashort4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Indents\",\"col\":3}},{\"id\":\"lplarisk01\",\"type\":\"header\",\"data\":{\"text\":\"Plan & Material Review\",\"level\":4,\"col\":12}},{\"id\":\"lplashort5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Production Plan\",\"col\":3}},{\"id\":\"lplashort6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RM Stock & Reservations\",\"col\":3}},{\"id\":\"lplashort7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Material Accountability\",\"col\":3}}]",
+ "creation": "2026-08-10 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 1,
+ "icon": "calendar",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 1,
+ "label": "Lumirise Planning",
+ "links": [],
+ "modified": "2026-08-10 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Lumirise UI",
+ "name": "Lumirise Planning",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Lumirise Planning Workspace"
+  }
+ ],
+ "sequence_id": 22.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "My Planning Tasks",
+   "link_to": "Lumirise Task",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Material Plans",
+   "link_to": "Material Planning",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Production Schedules",
+   "link_to": "Lumirise Production Schedule",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Indents",
+   "link_to": "Indent",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "label": "Production Plan",
+   "link_to": "Lumirise Production Plan",
+   "report_ref_doctype": "Sales Order",
+   "type": "Report"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "",
+   "label": "RM Stock & Reservations",
+   "link_to": "RM Stock and Reservation Tracker",
+   "report_ref_doctype": "Item",
+   "type": "Report"
+  },
+  {
+   "color": "Red",
+   "doc_view": "",
+   "label": "Material Accountability",
+   "link_to": "Material Accountability",
+   "report_ref_doctype": "Work Order",
+   "type": "Report"
+  }
+ ],
+ "title": "Lumirise Planning",
+ "type": "Workspace"
+}

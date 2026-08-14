@@ -1,0 +1,84 @@
+{
+ "app": "lumirise_ui",
+ "charts": [],
+ "content": "[{\"id\":\"lquahead01\",\"type\":\"header\",\"data\":{\"text\":\"Quality — Daily Navigation\",\"level\":4,\"col\":12}},{\"id\":\"lquashort1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"My Quality Tasks\",\"col\":3}},{\"id\":\"lquashort2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vendor PDI Queue\",\"col\":3}},{\"id\":\"lquashort3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"IQC Queue\",\"col\":3}},{\"id\":\"lquashort4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer PDI Queue\",\"col\":3}},{\"id\":\"lquaevid01\",\"type\":\"header\",\"data\":{\"text\":\"Evidence & History\",\"level\":4,\"col\":12}},{\"id\":\"lquashort5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"IQC Samples\",\"col\":3}},{\"id\":\"lquashort6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Defect Codes\",\"col\":3}},{\"id\":\"lquashort7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Batch-wise Rejection\",\"col\":3}}]",
+ "creation": "2026-08-10 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 1,
+ "icon": "quality",
+ "idx": 0,
+ "indicator_color": "purple",
+ "is_hidden": 1,
+ "label": "Lumirise Quality",
+ "links": [],
+ "modified": "2026-08-10 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Lumirise UI",
+ "name": "Lumirise Quality",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Lumirise Quality Workspace"
+  }
+ ],
+ "sequence_id": 21.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "My Quality Tasks",
+   "link_to": "Lumirise Task",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Vendor PDI Queue",
+   "link_to": "Vendor PDI",
+   "type": "DocType"
+  },
+  {
+   "color": "Yellow",
+   "doc_view": "List",
+   "label": "IQC Queue",
+   "link_to": "IQC",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Customer PDI Queue",
+   "link_to": "Customer PDI",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "label": "IQC Samples",
+   "link_to": "IQC Sample",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Defect Codes",
+   "link_to": "Lumirise Defect Code",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "",
+   "label": "Batch-wise Rejection",
+   "link_to": "Batch Wise Rejection",
+   "report_ref_doctype": "IQC",
+   "type": "Report"
+  }
+ ],
+ "title": "Lumirise Quality",
+ "type": "Workspace"
+}

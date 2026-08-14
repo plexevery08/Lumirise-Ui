@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "autoname": "field:user",
+ "creation": "2026-08-10 00:00:00.000000",
+ "description": "Audited Phase 1A pilot assignment. Enabling grants only the user's eligible role-Workspace access roles and records the previous native default Workspace for rollback.",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "enabled",
+  "default_workspace",
+  "assignment_section",
+  "previous_default_workspace",
+  "assigned_workspace",
+  "granted_workspace_roles",
+  "timing_section",
+  "activated_on",
+  "restored_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Pilot User",
+   "options": "User",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "description": "Requires Easy UI: Role Workspaces to be enabled. Turning this off restores the recorded previous home and removes only roles granted by this record.",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Active Pilot"
+  },
+  {
+   "description": "Must be one of the Phase 1A Workspaces authorized by the user's existing operational roles.",
+   "fieldname": "default_workspace",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Default Workspace",
+   "options": "Workspace",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assignment_section",
+   "fieldtype": "Section Break",
+   "label": "Reversible Assignment"
+  },
+  {
+   "fieldname": "previous_default_workspace",
+   "fieldtype": "Link",
+   "label": "Previous Default Workspace",
+   "options": "Workspace",
+   "read_only": 1
+  },
+  {
+   "fieldname": "assigned_workspace",
+   "fieldtype": "Link",
+   "label": "Assigned Workspace",
+   "options": "Workspace",
+   "read_only": 1
+  },
+  {
+   "description": "JSON audit of only the dedicated Workspace roles added by this assignment.",
+   "fieldname": "granted_workspace_roles",
+   "fieldtype": "Small Text",
+   "label": "Granted Workspace Roles",
+   "read_only": 1
+  },
+  {
+   "fieldname": "timing_section",
+   "fieldtype": "Section Break",
+   "label": "Activation History"
+  },
+  {
+   "fieldname": "activated_on",
+   "fieldtype": "Datetime",
+   "label": "Activated On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "restored_on",
+   "fieldtype": "Datetime",
+   "label": "Restored On",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-10 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Lumirise UI",
+ "name": "Lumirise Workspace Pilot",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "user"
+}
