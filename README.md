@@ -16,6 +16,9 @@ pass on a disposable site. Phase 1C adds the read-only Order 360 and Material
 360 views; their flags are independent and remain off by default.
 Phase 1D adds guarded read-only Stock Control and Quality Queue views; these
 also remain off by default.
+The Inbound & Quality board and Action Readiness report are also read-only. The
+Action Readiness report can be opened at `/app/lumirise-action-readiness` to
+inspect the optional custom-app action registry; it never dispatches an action.
 
 ### Installation
 

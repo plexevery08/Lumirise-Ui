@@ -13,7 +13,7 @@ class TestRolloutStatus(IntegrationTestCase):
 
 		self.assertTrue(result["read_only"])
 		self.assertFalse(result["actions_enabled"])
-		self.assertEqual(result["app_version"], "0.4.0")
+		self.assertEqual(result["app_version"], "0.5.0")
 		self.assertFalse(result["gates"]["task_contract_available"])
 		self.assertTrue(result["gates"]["mutation_flags_disabled"])
 		self.assertTrue(result["gates"]["read_surfaces_disabled_by_default"])
@@ -21,4 +21,6 @@ class TestRolloutStatus(IntegrationTestCase):
 		self.assertIn("lumirise-my-work", page_names)
 		if frappe.db.exists("Page", "lumirise-ui-control-center"):
 			self.assertIn("lumirise-ui-control-center", page_names)
+		if frappe.db.exists("Page", "lumirise-action-readiness"):
+			self.assertIn("lumirise-action-readiness", page_names)
 		self.assertTrue(all(not flag["enabled"] for flag in result["flags"]))

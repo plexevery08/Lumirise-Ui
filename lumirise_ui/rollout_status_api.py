@@ -28,7 +28,6 @@ PAGE_FLAGS = {
 	"lumirise-scanner-readiness": "easy_ui_scanner_actions",
 }
 
-
 def _task_contract_available() -> bool:
 	try:
 		importlib.import_module("lumirise_custom.task_contracts")

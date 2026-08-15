@@ -1,0 +1,20 @@
+{
+ "content": null,
+ "creation": "2026-08-15 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "module": "Lumirise UI",
+ "name": "lumirise-action-readiness",
+ "page_name": "lumirise-action-readiness",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Lumirise Operations"},
+  {"role": "Lumirise Planning Workspace"},
+  {"role": "Lumirise Purchase Workspace"},
+  {"role": "Lumirise RM Stores Workspace"},
+  {"role": "Lumirise Quality Workspace"}
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Action Readiness"
+}
