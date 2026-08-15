@@ -13,7 +13,7 @@ class TestRolloutStatus(IntegrationTestCase):
 
 		self.assertTrue(result["read_only"])
 		self.assertFalse(result["actions_enabled"])
-		self.assertEqual(result["app_version"], "0.2.0")
+		self.assertEqual(result["app_version"], "0.3.0")
 		self.assertFalse(result["gates"]["task_contract_available"])
 		self.assertTrue(result["gates"]["mutation_flags_disabled"])
 		self.assertTrue(result["gates"]["read_surfaces_disabled_by_default"])

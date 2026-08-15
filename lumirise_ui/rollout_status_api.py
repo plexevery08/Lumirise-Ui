@@ -24,6 +24,7 @@ PAGE_FLAGS = {
 	"lumirise-material-360": "easy_ui_material_360",
 	"lumirise-stock-control": "easy_ui_stock_control",
 	"lumirise-quality-queue": "easy_ui_quality_queue",
+	"lumirise-scanner-readiness": "easy_ui_scanner_actions",
 }
 
 
