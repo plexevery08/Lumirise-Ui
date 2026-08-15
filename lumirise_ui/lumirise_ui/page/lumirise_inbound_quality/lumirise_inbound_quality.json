@@ -1,0 +1,18 @@
+{
+ "content": null,
+ "creation": "2026-08-15 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "module": "Lumirise UI",
+ "name": "lumirise-inbound-quality",
+ "page_name": "lumirise-inbound-quality",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Lumirise Operations"},
+  {"role": "Lumirise RM Stores Workspace"},
+  {"role": "Lumirise Quality Workspace"}
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Inbound & Quality"
+}

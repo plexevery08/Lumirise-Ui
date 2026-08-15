@@ -91,12 +91,21 @@ UI_ROLLOUT_FIELDS = (
 		"module": "Lumirise UI",
 	},
 	{
+		"fieldname": "easy_ui_inbound_quality",
+		"fieldtype": "Check",
+		"label": "Enable Inbound & Quality Board",
+		"default": "0",
+		"description": "Expose the read-only Inbound & Quality reconciliation board.",
+		"insert_after": "easy_ui_quality_queue",
+		"module": "Lumirise UI",
+	},
+	{
 		"fieldname": "easy_ui_state_actions",
 		"fieldtype": "Check",
 		"label": "Enable Easy-use State Actions",
 		"default": "0",
 		"description": "Master kill switch for later state-changing UI actions. Off by default.",
-		"insert_after": "easy_ui_quality_queue",
+		"insert_after": "easy_ui_inbound_quality",
 		"module": "Lumirise UI",
 	},
 	{

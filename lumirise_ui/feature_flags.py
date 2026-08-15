@@ -21,6 +21,7 @@ READ_SURFACE_FLAGS = frozenset(
 		"easy_ui_material_360",
 		"easy_ui_stock_control",
 		"easy_ui_quality_queue",
+		"easy_ui_inbound_quality",
 	}
 )
 
