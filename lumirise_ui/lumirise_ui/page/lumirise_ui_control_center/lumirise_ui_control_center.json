@@ -1,0 +1,16 @@
+{
+ "content": null,
+ "creation": "2026-08-15 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "module": "Lumirise UI",
+ "name": "lumirise-ui-control-center",
+ "page_name": "lumirise-ui-control-center",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Lumirise Operations"}
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Lumirise UI Control Center"
+}
