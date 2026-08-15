@@ -14,7 +14,6 @@ from frappe import _
 from frappe.utils import add_to_date, get_datetime, now_datetime
 
 from lumirise_ui.feature_flags import require_enabled
-from lumirise_custom.task_contracts import TERMINAL_STATUSES, task_view
 
 TASK_FIELDS = (
 	"name",
@@ -44,6 +43,24 @@ TASK_FIELDS = (
 SEVERITY_RANK = {"Critical": 0, "High": 1, "Medium": 2, "Low": 3}
 
 
+def _task_contract():
+	"""Load the Phase 0 contract only when a queue is actually enabled.
+
+	This keeps the standalone UI app importable on an older custom-app checkout,
+	while still refusing to serve data until the authoritative business contract
+	is installed. It prevents a partial installation from silently guessing task
+	status semantics.
+	"""
+	try:
+		from lumirise_custom.task_contracts import TERMINAL_STATUSES, task_view
+	except ModuleNotFoundError:
+		frappe.throw(
+			_("Lumirise UI requires the Phase 0 task contract from lumirise_custom."),
+			frappe.PermissionError,
+		)
+	return TERMINAL_STATUSES, task_view
+
+
 def _parse_limit(limit: int | str | None, default: int = 100, maximum: int = 250) -> int:
 	try:
 		return max(1, min(int(limit or default), maximum))
@@ -70,14 +87,14 @@ def _age_days(creation, now: datetime) -> int:
 	return max(0, (now - get_datetime(creation)).days)
 
 
-def _task_row(row, now: datetime) -> dict:
+def _task_row(row, now: datetime, task_view_fn) -> dict:
 	as_dict = getattr(row, "as_dict", None)
 	result = as_dict() if callable(as_dict) else dict(row)
 	result["due_on"] = _iso(result.get("due_on"))
 	result["review_on"] = _iso(result.get("review_on"))
 	result["creation"] = _iso(result.get("creation"))
 	result["modified"] = _iso(result.get("modified"))
-	result["view"] = task_view(row.get("status"), row.get("review_on"), now=now)
+	result["view"] = task_view_fn(row.get("status"), row.get("review_on"), now=now)
 	result["age_days"] = _age_days(row.get("creation"), now)
 	result["source_label"] = (
 		f"{row.get('reference_doctype')}: {row.get('reference_name')}"
@@ -98,7 +115,15 @@ def _sort_rows(rows: list, now: datetime) -> list:
 	)
 
 
-def _task_filters(*, user: str, view: str, department: str | None, task_type: str | None, horizon: int):
+def _task_filters(
+	*,
+	user: str,
+	view: str,
+	department: str | None,
+	task_type: str | None,
+	horizon: int,
+	terminal_statuses,
+):
 	now = now_datetime()
 	filters = []
 	if view in {"mine", "due_today", "overdue", "blocked", "waiting", "completed"}:
@@ -109,11 +134,11 @@ def _task_filters(*, user: str, view: str, department: str | None, task_type: st
 		filters.append(["task_type", "=", task_type])
 
 	if view == "completed":
-		filters.append(["status", "in", list(TERMINAL_STATUSES)])
+		filters.append(["status", "in", list(terminal_statuses)])
 	elif view in {"mine", "due_today", "overdue", "blocked", "waiting"}:
-		filters.append(["status", "not in", list(TERMINAL_STATUSES)])
+		filters.append(["status", "not in", list(terminal_statuses)])
 	else:
-		filters.append(["status", "not in", list(TERMINAL_STATUSES)])
+		filters.append(["status", "not in", list(terminal_statuses)])
 
 	if view == "due_today":
 		filters.extend(
@@ -150,6 +175,7 @@ def get_my_work(
 ) -> dict:
 	"""Return the current user's permission-filtered task queue."""
 	require_enabled("easy_ui_my_work")
+	terminal_statuses, task_view_fn = _task_contract()
 	view = _validate_view(view, {"mine", "due_today", "overdue", "blocked", "waiting", "completed"})
 	now = now_datetime()
 	rows = frappe.get_list(
@@ -158,20 +184,21 @@ def get_my_work(
 			user=frappe.session.user,
 			view=view,
 			department=department,
-			task_type=task_type,
-			horizon=_parse_horizon(horizon),
-		),
+				task_type=task_type,
+				horizon=_parse_horizon(horizon),
+				terminal_statuses=terminal_statuses,
+			),
 		fields=list(TASK_FIELDS),
 		order_by="due_on asc, modified desc",
 		limit=_parse_limit(limit),
 	)
 	if view == "blocked":
 		rows = [
-			row for row in rows if task_view(row.get("status"), row.get("review_on"), now=now) == "blocked"
+			row for row in rows if task_view_fn(row.get("status"), row.get("review_on"), now=now) == "blocked"
 		]
 	elif view == "waiting":
 		rows = [
-			row for row in rows if task_view(row.get("status"), row.get("review_on"), now=now) == "waiting"
+			row for row in rows if task_view_fn(row.get("status"), row.get("review_on"), now=now) == "waiting"
 		]
 	rows = _sort_rows(rows, now)
 	return {
@@ -180,29 +207,29 @@ def get_my_work(
 		"read_only": True,
 		"actions_enabled": False,
 		"count": len(rows),
-		"rows": [_task_row(row, now) for row in rows],
+		"rows": [_task_row(row, now, task_view_fn) for row in rows],
 	}
 
 
-def _attention_task_rows(now: datetime, limit: int) -> list[dict]:
+def _attention_task_rows(now: datetime, limit: int, terminal_statuses, task_view_fn) -> list[dict]:
 	"""Aggregate only open tasks visible through the normal permission query."""
 	rows = frappe.get_list(
 		"Lumirise Task",
-		filters=[["status", "not in", list(TERMINAL_STATUSES)]],
+		filters=[["status", "not in", list(terminal_statuses)]],
 		fields=list(TASK_FIELDS),
 		order_by="due_on asc, creation asc",
 		limit=limit,
 	)
 	result = []
 	for row in rows:
-		view = task_view(row.get("status"), row.get("review_on"), now=now)
+		view = task_view_fn(row.get("status"), row.get("review_on"), now=now)
 		if (
 			row.get("severity") not in {"High", "Critical"}
 			and view not in {"blocked"}
 			and not row.get("escalated")
 		):
 			continue
-		item = _task_row(row, now)
+		item = _task_row(row, now, task_view_fn)
 		item["reason_bucket"] = (
 			"overdue approval" if row.get("escalated") else row.get("blocker_code") or "operational exception"
 		)
@@ -255,9 +282,10 @@ def get_needs_attention(
 ) -> dict:
 	"""Return a permission-aware exception aggregate without another status store."""
 	require_enabled("easy_ui_needs_attention")
+	terminal_statuses, task_view_fn = _task_contract()
 	limit = _parse_limit(limit)
 	now = now_datetime()
-	rows = _attention_task_rows(now, limit)
+	rows = _attention_task_rows(now, limit, terminal_statuses, task_view_fn)
 	if department:
 		rows = [row for row in rows if row.get("department") == department]
 	if task_type:

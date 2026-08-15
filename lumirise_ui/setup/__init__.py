@@ -148,6 +148,7 @@ def after_migrate() -> None:
 	ensure_rollout_fields()
 	from lumirise_ui.workspace_routing import (
 		ensure_daily_queue_shortcuts,
+		ensure_operational_queue_shortcuts,
 		ensure_trace_view_shortcuts,
 		sync_role_workspace_rollout,
 	)
@@ -155,11 +156,17 @@ def after_migrate() -> None:
 	sync_role_workspace_rollout()
 	ensure_daily_queue_shortcuts()
 	ensure_trace_view_shortcuts()
+	ensure_operational_queue_shortcuts()
 
 
 def on_settings_update(doc, method=None) -> None:
 	"""Apply the role-workspace kill switch immediately after settings save."""
-	from lumirise_ui.workspace_routing import ensure_trace_view_shortcuts, sync_role_workspace_rollout
+	from lumirise_ui.workspace_routing import (
+		ensure_operational_queue_shortcuts,
+		ensure_trace_view_shortcuts,
+		sync_role_workspace_rollout,
+	)
 
 	sync_role_workspace_rollout(enabled=bool(doc.get("easy_ui_role_workspaces")))
 	ensure_trace_view_shortcuts()
+	ensure_operational_queue_shortcuts()

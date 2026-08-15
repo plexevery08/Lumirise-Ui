@@ -1,0 +1,20 @@
+{
+ "content": null,
+ "creation": "2026-08-15 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "module": "Lumirise UI",
+ "name": "lumirise-stock-control",
+ "page_name": "lumirise-stock-control",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Lumirise Operations"},
+  {"role": "Lumirise RM Stores Workspace"},
+  {"role": "Lumirise Quality Workspace"},
+  {"role": "Lumirise Planning Workspace"},
+  {"role": "Lumirise Purchase Workspace"}
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Stock Control"
+}

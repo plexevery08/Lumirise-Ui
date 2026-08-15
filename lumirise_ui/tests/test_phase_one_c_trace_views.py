@@ -8,7 +8,7 @@ from frappe.tests import IntegrationTestCase
 import lumirise_ui
 from lumirise_ui import trace_api
 from lumirise_ui.feature_flags import SETTINGS_DOCTYPE
-from lumirise_ui.workspace_routing import TRACE_VIEW_SHORTCUTS
+from lumirise_ui.workspace_routing import OPERATIONAL_QUEUE_SHORTCUTS, TRACE_VIEW_SHORTCUTS
 
 
 def _page_file(page_name: str) -> Path:
@@ -48,7 +48,7 @@ class TestPhaseOneCTraceViews(IntegrationTestCase):
 			"Lumirise Planning Workspace",
 			"Lumirise Purchase Workspace",
 		}
-		for page_name, _route, _color, _flag in TRACE_VIEW_SHORTCUTS:
+		for page_name, _route, _color, _flag in TRACE_VIEW_SHORTCUTS + OPERATIONAL_QUEUE_SHORTCUTS:
 			page = json.loads(_page_file(page_name).read_text())
 			self.assertEqual(page["module"], "Lumirise UI")
 			self.assertEqual({row["role"] for row in page["roles"]}, expected_roles)
@@ -62,4 +62,8 @@ class TestPhaseOneCTraceViews(IntegrationTestCase):
 		self.assertEqual(
 			[flag for _label, _page, _color, flag in TRACE_VIEW_SHORTCUTS],
 			["easy_ui_order_360", "easy_ui_material_360"],
+		)
+		self.assertEqual(
+			[flag for _label, _page, _color, flag in OPERATIONAL_QUEUE_SHORTCUTS],
+			["easy_ui_stock_control", "easy_ui_quality_queue"],
 		)

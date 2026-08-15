@@ -31,6 +31,11 @@ Phase 1C trace controls are also off by default:
 - `easy_ui_order_360=1` exposes the read-only Order 360 trace.
 - `easy_ui_material_360=1` exposes the read-only Material 360 stock/movement view.
 
+Phase 1D controls:
+
+- `easy_ui_stock_control=1` exposes the read-only Stock Control queue.
+- `easy_ui_quality_queue=1` exposes the read-only Quality Queue.
+
 Enable these only after the Phase 1C gates pass. They do not enable any
 state-changing action.
 

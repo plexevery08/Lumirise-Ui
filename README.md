@@ -14,6 +14,8 @@ the `Lumirise Task` business lifecycle or create state-changing actions. Keep
 all UI flags off until the Phase 0 custom-app gates and the UI integration suite
 pass on a disposable site. Phase 1C adds the read-only Order 360 and Material
 360 views; their flags are independent and remain off by default.
+Phase 1D adds guarded read-only Stock Control and Quality Queue views; these
+also remain off by default.
 
 ### Installation
 
