@@ -1,4 +1,5 @@
 import json
+from importlib import import_module
 from pathlib import Path
 from unittest.mock import patch
 
@@ -10,10 +11,12 @@ from lumirise_ui import trace_api
 from lumirise_ui.feature_flags import SETTINGS_DOCTYPE
 from lumirise_ui.workspace_routing import OPERATIONAL_QUEUE_SHORTCUTS, TRACE_VIEW_SHORTCUTS
 
+UI_MODULE_PATH = Path(import_module("lumirise_ui.lumirise_ui").__file__).parent
+
 
 def _page_file(page_name: str) -> Path:
 	folder = f"lumirise_{frappe.scrub(page_name)}"
-	return Path(lumirise_ui.__file__).parent / "page" / folder / f"{folder}.json"
+	return UI_MODULE_PATH / "page" / folder / f"{folder}.json"
 
 
 def _set_flag(fieldname: str, value: int) -> None:

@@ -1,3 +1,4 @@
+from importlib import import_module
 from pathlib import Path
 from unittest.mock import patch
 
@@ -9,6 +10,8 @@ import lumirise_ui
 from lumirise_ui import ui_api
 from lumirise_ui.feature_flags import SETTINGS_DOCTYPE
 from lumirise_ui.workspace_routing import DAILY_QUEUE_SHORTCUTS, ROLE_WORKSPACES
+
+UI_MODULE_PATH = Path(import_module("lumirise_ui.lumirise_ui").__file__).parent
 
 
 def _user(role: str):
@@ -168,7 +171,7 @@ class TestPhaseOneDailyWork(IntegrationTestCase):
 				self.assertEqual(shortcuts[label].link_to, page_name)
 				self.assertEqual(shortcuts[label].doc_view, "")
 
-		page_root = Path(lumirise_ui.__file__).parent / "page"
+		page_root = UI_MODULE_PATH / "page"
 		for folder in ("lumirise_my_work", "lumirise_needs_attention"):
 			page_js = (page_root / folder / f"{folder}.js").read_text()
 			self.assertIn("actions_enabled", page_js)

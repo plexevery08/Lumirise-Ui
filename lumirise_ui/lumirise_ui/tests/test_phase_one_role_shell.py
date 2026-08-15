@@ -1,4 +1,5 @@
 import json
+from importlib import import_module
 from pathlib import Path
 
 import frappe
@@ -14,10 +15,12 @@ from lumirise_ui.workspace_routing import (
 	eligible_workspaces_for_roles,
 )
 
+UI_MODULE_PATH = Path(import_module("lumirise_ui.lumirise_ui").__file__).parent
+
 
 def _workspace_file(workspace_name: str) -> Path:
 	folder = frappe.scrub(workspace_name)
-	return Path(lumirise_ui.__file__).parent / "workspace" / folder / f"{folder}.json"
+	return UI_MODULE_PATH / "workspace" / folder / f"{folder}.json"
 
 
 def _new_pilot_user(*roles: str, default_workspace: str = "Lumirise"):
